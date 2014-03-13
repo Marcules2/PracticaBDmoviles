@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.0.min.css" />
+<!--<link rel="stylesheet" href="css/jquery.mobile.theme-1.0.min.css" />-->
+<link rel="stylesheet" href="css/party.css" />
+<!--script src="phonegap.js"></script-->
+<script src="js/jquery-1.6.4.min.js"></script>
+<script src="js/jquery.mobile-1.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#envio").click(function(){
+		//alert("Ejecucion correcta del Boton");
+		var nombre=$("#nombre").val();
+		//alert("Nombre: "+ nombre);
+		var email=$("#email").val();
+		//alert("Email: "+ email);
+		var telefono=$("#telefono").val();
+		//alert("Telefono: "+ telefono);
+		$.ajax({
+		type:"POST",
+		url:"192.168.1.78/procesar.php",
+		data:({Nom:nombre, Mail:email, Telef:telefono}),
+		cache:false,
+		dataType:"text",
+		success:exitoso
+		});
+				});
+				function exitoso(data){
+					alert(data);
+				}
+	
+});
+</script>
+</head>
+
+
+<body>
+<div data-role="page" id="principal" data-theme="a">
+<div data-role="header">
+<h3>Principal</h3>
+</div>
+<div data-role="content">
+<h3>Bienvenida</h3>
+<a href="#enviarDatos" data-role="button" data-transition="slideup">Entrar</a>
+</div>
+</div>
+<div data-role="page" id="enviarDatos">
+<div data-role="header">
+<h3>Altas</h3>
+<a href="#principal" data-role="button" data-transition="slideup">Regresar</a>
+</div>
+<div data-role="content">
+<div data-role="fieldcontain">
+<label for="nombre">Nombre</label>
+<input type="text" id="nombre" name="nombre"/>
+</div>
+<div data-role="fieldcontain">
+<label for="email">E-mail</label>
+<input type="text" id="email" name="email"/>
+</div>
+<div data-role="fieldcontain">
+<label for="telefono">Telefono</label>
+<input type="tel" id="telefono" name="telefono"/>
+</div>
+<div data-role="fieldcontain">
+<input type="button" id="envio" name="envio" value="Enviar"/>
+</div>
+</div>
+</div>
+</body>
+</html>
